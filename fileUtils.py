@@ -16,7 +16,7 @@ def loadInputFile(year, day):
         cookies = {'session': sessionCookie}
         req = requests.get(f'https://adventofcode.com/{year}/day/{day}/input', cookies=cookies)
         if req.status_code >= 400:
-            raise Exception(f'Day {day}, {year} has not unlocked yet')
+            raise Exception(req.text)
         with open(filePath, 'w') as newFile:
             newFile.write(req.text)
     return open(filePath, 'r')
