@@ -24,3 +24,7 @@ def loadInputFile(year, day):
 def loadInputLines(year, day):
     with loadInputFile(year, day) as f:
         return f.read().splitlines()
+
+def loadInput(year, day):
+    with loadInputFile(year, day) as f:
+        return f.read().strip()
