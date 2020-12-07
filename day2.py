@@ -1,4 +1,4 @@
-from fileUtils import loadInputLines
+from aocUtils import loadInputLines
 
 #TODO - Learn Regex
 

@@ -1,4 +1,4 @@
-from fileUtils import loadInputLines
+from aocUtils import loadInputLines, printT
 import re
 
 lines = loadInputLines(2020, 7)
@@ -9,19 +9,22 @@ for line in lines:
     innerBags = re.findall(r'([0-9]+?)\s(.+?bag)', line)
     bags[outerBag] = innerBags
 
-def containsShinyBag(bagContents):
-    if len(bagContents) == 0:
-        return False
-    return max(bag[1] == 'shiny gold bag' or containsShinyBag(bags[bag[1]]) for bag in bagContents)
+printT('Bags Parsed')
+
+def containsShinyBag(innerBags):
+    for bag in innerBags:
+        if bag[1] == 'shiny gold bag' or containsShinyBag(bags[bag[1]]):
+            return True
+    return False
 
 def part1():
-    return sum(containsShinyBag(bag) for bag in bags.values())
+    return sum(containsShinyBag(innerBags) for innerBags in bags.values())
 
-def bagCount(bagContents):
-    return sum(int(bag[0]) + int(bag[0]) * bagCount(bags[bag[1]]) for bag in bagContents)
+def bagCount(innerBags):
+    return sum(int(bag[0]) + int(bag[0]) * bagCount(bags[bag[1]]) for bag in innerBags)
 
 def part2():
     return bagCount(bags['shiny gold bag'])
 
-print(part1())
-print(part2())
+printT(part1())
+printT(part2())

@@ -1,4 +1,4 @@
-from fileUtils import loadInputLines
+from aocUtils import loadInputLines
 import re
 
 lines = loadInputLines(2020, 4)

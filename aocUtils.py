@@ -1,6 +1,7 @@
 import requests
 from pathlib import Path
 import os
+import datetime
 
 def loadInputFile(year, day):
     rootDir = 'C:\\AdventOfCode'
@@ -23,8 +24,13 @@ def loadInputFile(year, day):
 
 def loadInputLines(year, day):
     with loadInputFile(year, day) as f:
-        return f.read().splitlines()
+        lines = f.read().splitlines()
+        printT('Input Loaded')
+        return lines
 
 def loadInput(year, day):
     with loadInputFile(year, day) as f:
         return f.read().strip()
+
+def printT(message):
+    print(datetime.datetime.now().strftime('%M:%S.%f')[:-3] + ': ' + str(message))
