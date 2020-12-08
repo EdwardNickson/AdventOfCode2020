@@ -1,19 +1,20 @@
 from aocUtils import loadInputLines, printT
 import re
 
-lines = loadInputLines(2020, 9)
-origOps = [(l[0], list(map(int, l[1:]))) for l in (line.split(' ') for line in lines)]
+lines = loadInputLines(2020, 8)
+origIns = [line.split(' ') for line in lines]
 
-def runBoot(ops):
+def runBoot(ins):
     acc = 0
     i = 0
     opsRun = set()
     while True:
-        if i in opsRun:
-            return (acc, 'infinite loop')
-        if i == len(ops):
-            return (acc, 'terminated')
-        op, args = ops[i]
+        if i in opsRun: #infinite Loop
+            return (0, acc)
+        if i == len(ins): #terminated correctly
+            return (1, acc)
+        op = ins[i][0]
+        args = ins[i][1:]
         opsRun.add(i)
         if op == 'nop':
             i += 1
@@ -31,17 +32,3 @@ def part2():
 
 printT(part1())
 printT(part2())
-
-# def part1():
-#     return runBoot(origOps)[0]
-
-# def part2():
-#     for i in range(0, len(origOps)):
-#         newOps = [(o[0], o[1][:]) for o in origOps]
-#         if newOps[i][0] == 'jmp':
-#             newOps[i] = ('nop', newOps[i][1])
-#         elif newOps[i][0] == 'nop':
-#             newOps[i] = ('jmp', newOps[i][1])
-#         result = runBoot(newOps)
-#         if result[1] == 'terminated':
-#             return result[0]
