@@ -33,4 +33,4 @@ def loadInput(year, day):
         return f.read().strip()
 
 def printT(message):
-    print(datetime.datetime.now().strftime('%M:%S.%f')[:-3] + ': ' + str(message))
+    print(datetime.datetime.now().strftime('%M:%S.%f') + ': ' + str(message))
