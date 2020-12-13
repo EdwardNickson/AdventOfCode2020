@@ -4,13 +4,15 @@ import os
 import datetime
 
 def loadInputFile(year, day):
-    rootDir = 'C:\\AdventOfCode'
-    if (not Path(rootDir).is_dir()):
-        os.mkdir(rootDir)
-    yearDir = f'{rootDir}\\{year}' 
-    if (not Path(yearDir).is_dir()):
-        os.mkdir(yearDir)
-    filePath = f'{yearDir}\\day{day}.txt'
+    # rootDir = 'C:\\AdventOfCode'
+    # if (not Path(rootDir).is_dir()):
+    #     os.mkdir(rootDir)
+    # yearDir = f'{rootDir}\\{year}' 
+    # if (not Path(yearDir).is_dir()):
+    #     os.mkdir(yearDir)
+    # filePath = f'{yearDir}\\day{day}.txt'
+    rootDir = os.getcwd()
+    filePath = f'{rootDir}\\day{day}.txt'
     if (not Path(filePath).is_file()):
         with open(f'{rootDir}\\SessionCookie.txt', 'r') as s:
             sessionCookie = s.readline()

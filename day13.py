@@ -15,32 +15,16 @@ def part1():
     return res
 
 def part2():
-    buses = [ids for ids in lines[1].split(',')]
-    bs = {}
-    for i in range(0, len(buses)):
-        if buses[i] == 'x':
-            buses[i] = None
-        else:
-            bs[i] = int(buses[i])
-    s = 100000000000000
-    while True:
-        if s%bs[0] == 0:
-            break
-        s += 1
-    found = False
-    while not found:
-        found = True
-        for i in bs:
-            if (s+i)%bs[i] != 0:
-                found = False
-                break
-        if found:
-            break
-        s += bs[0]
+    t = 1
+    step = 1
+    for i, bus in enumerate(id for id in lines[1].split(',')):
+        if (bus == 'x'):
+            continue
+        bus = int(bus)
+        while((t+i)%bus):
+            t += step
+        step *= bus
+    return t
         
-    return s
-        
-
-
 printT(part1())
 printT(part2())
