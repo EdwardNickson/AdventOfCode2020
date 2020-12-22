@@ -28,7 +28,7 @@ def part1():
 def playGame(p1, p2):
     history = set()
     while len(p1) > 0 and len(p2) > 0:
-        currentState = (''.join([str(c) for c in p1]), ''.join([str(c) for c in p2]))
+        currentState = (tuple(p1), tuple(p2))
         if currentState in history:
             return [1],[]
         else:
