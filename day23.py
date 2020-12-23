@@ -25,19 +25,19 @@ def part2():
     cups = [int(i) for i in input]
     cupCount = 1000000
     turns = 10000000
-
+            
     link = [0]*(cupCount+1)
-    for i in range(0, cupCount):
-        if i < len(cups) - 1:
-            link[cups[i]] = cups[i+1]
-        elif i == len(cups) -1:
-            link[cups[i]] = len(cups) +1
-        elif i == cupCount -1:
-            link[cupCount] = cups[0]
-        else:
-            link[i+1] = i+2
-    current = cups[0]
 
+    for i in range(0, len(cups) - 1):
+        link[cups[i]] = cups[i+1]
+    link[cups[len(cups) -1]] = len(cups) +1
+
+    for i in range(len(cups)+1, cupCount):
+        link[i] = i+1
+    link[cupCount] = cups[0]
+
+    current = cups[0]
+    
     for _ in range(0, turns):
         first = link[current]
         second = link[first]
@@ -45,15 +45,14 @@ def part2():
         removed = [first, second, third]
         target = 0
         for j in range(current-1, current-5, -1):
-            if j in removed:
-                continue
             if j == 0:
                 target = cupCount
                 while target in removed:
                     target -= 1
                 break
-            target = j
-            break
+            elif j not in removed:
+                target = j
+                break
         link[current] = link[third]
         link[third] = link[target]
         link[target] = first
