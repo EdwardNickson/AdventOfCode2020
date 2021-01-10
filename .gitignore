@@ -1,4 +1,5 @@
-/__pycache__
 /.vscode
 /SessionCookie.txt
-/*day*.txt
+/*/.vscode
+/*/__pycache__
+/*/*day*.txt
