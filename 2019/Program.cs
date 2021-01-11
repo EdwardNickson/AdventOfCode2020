@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace _2019
@@ -36,12 +37,17 @@ namespace _2019
 
         private static async Task RunDayAsync(int day)
         {
+            var stopWatch = new Stopwatch();
             var input = await AocUtils.LoadInputAsync(day, YEAR);
+            stopWatch.Start();
+            //TODO, test putting reflection outside of timing code
             var solver = CreateSolverForDay(day, input);
             var part1 = solver.Part1();
-            Console.WriteLine(part1);
             var part2 = solver.Part2();
-            Console.WriteLine(part2);
+            stopWatch.Stop();
+            Console.WriteLine("Elapsed Milliseconds: " + stopWatch.ElapsedMilliseconds);
+            Console.WriteLine("Part1: " + part1);
+            Console.WriteLine("Part2: " + part2);
         }
 
         static Solver CreateSolverForDay(int day, string input)

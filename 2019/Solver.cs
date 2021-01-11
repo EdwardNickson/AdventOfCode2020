@@ -11,7 +11,7 @@ namespace _2019
         {
             Input = input;
         }
-        public abstract string Part1();
-        public abstract string Part2();
+        public abstract object Part1();
+        public abstract object Part2();
     }
 }
