@@ -8,24 +8,26 @@ namespace _2019
 {
     public class Day3 : Solver
     {
-        readonly List<(int, int)> pathA;
-        readonly List<(int, int)> pathB;
+        readonly Dictionary<(int, int), int> pathA;
+        readonly Dictionary<(int, int), int> pathB;
         readonly List<(int, int)> intersection;
         public Day3(string input) : base(input)
         {
             foreach (var line in input.Split("\n"))
             {
-                var pathPoints = new List<(int, int)>();
+                var pathPoints = new Dictionary<(int, int), int>();
                 var cur = (0, 0);
+                var wireLength = 0;
                 foreach (var dir in line.Split(","))
                 {
                     var d = dir[0];
                     var l = int.Parse(dir[1..]);
                     for (int i=0; i < l; i++)
                     {
+                        wireLength++;
                         var vector = GetDirectionVector(d);
                         cur = (cur.Item1 + vector.Item1, cur.Item2 + vector.Item2);
-                        pathPoints.Add(cur);
+                        pathPoints.TryAdd(cur, wireLength);
                     }
                 }
                 if (pathA is null)
@@ -33,7 +35,7 @@ namespace _2019
                 else
                     pathB = pathPoints;
             }
-            intersection = pathA.Intersect(pathB).ToList();
+            intersection = pathA.Keys.Intersect(pathB.Keys).ToList();
         }
 
         public static (int, int) GetDirectionVector(char direction) =>
@@ -57,7 +59,7 @@ namespace _2019
 
         public override object Part2()
         {
-            return intersection.Select(x => pathA.IndexOf(x) + 1 + pathB.IndexOf(x) + 1).Min();
+            return intersection.Select(x => pathA[x] + pathB[x]).Min();
         }
     }
 }

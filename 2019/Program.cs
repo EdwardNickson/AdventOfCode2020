@@ -38,16 +38,20 @@ namespace _2019
         private static async Task RunDayAsync(int day)
         {
             var stopWatch = new Stopwatch();
-            var input = await AocUtils.LoadInputAsync(day, YEAR);
             stopWatch.Start();
-            //TODO, test putting reflection outside of timing code
+            var input = await AocUtils.LoadInputAsync(day, YEAR);
             var solver = CreateSolverForDay(day, input);
+            var initTime = stopWatch.ElapsedMilliseconds;
+            Console.WriteLine(initTime.ToString("D6") + " Initialised");
+            stopWatch.Restart();
             var part1 = solver.Part1();
+            var part1Time = stopWatch.ElapsedMilliseconds;
+            Console.WriteLine(part1Time.ToString("D6") + " Part1: " + part1);
+            stopWatch.Restart();
             var part2 = solver.Part2();
-            stopWatch.Stop();
-            Console.WriteLine("Elapsed Milliseconds: " + stopWatch.ElapsedMilliseconds);
-            Console.WriteLine("Part1: " + part1);
-            Console.WriteLine("Part2: " + part2);
+            var part2Time = stopWatch.ElapsedMilliseconds;
+            Console.WriteLine(part2Time.ToString("D6") + " Part2: " + part2);
+            Console.WriteLine("Total Time: " + (initTime + part1Time + part2Time));
         }
 
         static Solver CreateSolverForDay(int day, string input)
