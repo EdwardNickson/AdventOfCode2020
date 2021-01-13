@@ -37,12 +37,14 @@ namespace _2019
 
         private static async Task RunDayAsync(int day)
         {
+            //Exlude loading input string from disk in timing.
+            var input = await AocUtils.LoadInputAsync(day, YEAR);
+
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            var input = await AocUtils.LoadInputAsync(day, YEAR);
             var solver = CreateSolverForDay(day, input);
             var initTime = stopWatch.ElapsedMilliseconds;
-            Console.WriteLine(initTime.ToString("D6") + " Initialised");
+            Console.WriteLine(initTime.ToString("D6") + " Input Parsed");
             stopWatch.Restart();
             var part1 = solver.Part1();
             var part1Time = stopWatch.ElapsedMilliseconds;
