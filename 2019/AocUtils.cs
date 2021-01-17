@@ -30,7 +30,7 @@ namespace _2019
                 var url = $"https://adventofcode.com/{year}/day/{day}/input";
                 var input = await client.GetStringAsync(url);
                 File.WriteAllText(inputFile, input.Trim());
-                return input;
+                return input.Trim();
             }
         }
     }
