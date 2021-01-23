@@ -45,11 +45,8 @@ namespace _2019
             }
         }
 
-        
-
         HashSet<(int x, int y)> walls = new HashSet<(int x, int y)>();
         Dictionary<(int x, int y), int> visited = new Dictionary<(int x, int y), int>();
-        List<Robot> robots = new List<Robot>();
         int shortestPath = int.MaxValue;
         (int x, int y) oxygenLocation = (0, 0);
 
@@ -64,7 +61,10 @@ namespace _2019
 
         public override object Part1()
         {
-            robots.Add(new Robot(intCodes));
+            List<Robot> robots = new List<Robot>()
+            {
+                new Robot(intCodes)
+            };
             visited[(0,0)] = 0;
             while (true)
             {
@@ -93,8 +93,11 @@ namespace _2019
                             }
                             else if (output == 2)
                             {
-                                shortestPath = nextDistance;
-                                oxygenLocation = nextPos;
+                                if (nextDistance < shortestPath)
+                                {
+                                    shortestPath = nextDistance;
+                                    oxygenLocation = nextPos;
+                                }
                             }
                         }
                     }
