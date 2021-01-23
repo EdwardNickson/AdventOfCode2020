@@ -6,18 +6,28 @@ using System.Threading.Tasks;
 
 namespace _2019
 {
-    public class Computer
+    public class Computer: ICloneable
     {
-        public class State
+        public class State: ICloneable
         {
             public bool waitingForInput = false;
             public bool halted = false;
             public long? output = null;
+
+            public object Clone()
+            {
+                return new State()
+                {
+                    halted = halted,
+                    output = output,
+                    waitingForInput = waitingForInput
+                };
+            }
         }
 
         public class DynamicArray
         {
-            long[] array;
+            public long[] array;
             public DynamicArray(long[] array)
             {
                 this.array = array;
@@ -52,7 +62,7 @@ namespace _2019
         private long relativeBase = 0;
         private readonly DynamicArray program;
         private readonly long[] modes = new long[4];
-        public readonly State state = new State();
+        public State state = new State();
 
         public Computer(long[] program)
         {
@@ -128,7 +138,7 @@ namespace _2019
             while (true)
             {
                 Step(input);
-                if (input.HasValue)
+                if (input.HasValue) //input valid only for first instruction
                     input = null;
                 if (state.output.HasValue || state.halted || state.waitingForInput)
                     return;
@@ -157,6 +167,17 @@ namespace _2019
                 program[program[pointer + pointerOffset] + relativeBase] = value;
             else
                 throw new Exception("Invalid Mode");
+        }
+
+        public object Clone()
+        {
+            //modes doesn't need to be copied as it's state is recreated each step
+            return new Computer(program.array)
+            {
+                pointer = pointer,
+                relativeBase = relativeBase,
+                state = (State) state.Clone()
+            };
         }
     }
 }
