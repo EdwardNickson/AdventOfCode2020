@@ -33,6 +33,8 @@ namespace _2019
             {
                 await RunDayAsync(day);
             }
+            Console.WriteLine("Press Any Key to Exit");
+            Console.ReadKey();
         }
 
         private static async Task RunDayAsync(int day)
