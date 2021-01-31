@@ -4,4 +4,4 @@ All years require a file called SessionCookie.txt in the root directory which is
 It should contain your session cookie from the AOC website.
 
 2020 - Python  
-2019 - Rust  
+2019 - C#  
